@@ -19,8 +19,8 @@
     <h2>ビジネスメール採点ミニゲーム</h2>
     <div class="desc">
       <p>ビジネスメールの穴埋めをしてみよう。</p>
-      <p>あなたはB株式会社営業部の佐藤花子。使用しているアドレスは <b>abcd@sample.com</b> で、電話番号は <b>000-000-0000</b> です。</p>
-      <p>取引相手のA株式会社営業部山田さんに、会議の日程調整のメールを送ろう。</p>
+      <p>あなたは株式会社B営業部の佐藤花子。使用しているアドレスは <b>abcd@sample.com</b> で、電話番号は <b>000-000-0000</b> です。</p>
+      <p>取引相手の株式会社A営業部山田さんに、会議の日程調整のメールを送ろう。</p>
     </div>
 
     <pre>
@@ -29,7 +29,7 @@
 <input id="formB" type="text" />
 
 お世話になっております。
-株式会社ABCの佐藤です。
+株式会社Bの佐藤です。
 
 先日お打ち合わせした案件について、次回会議の日程をご確認いただきたくご連絡いたしました。
 候補日：
@@ -64,7 +64,7 @@
 
       // bの採点基準（完全一致で30点）
       const b = formB.value.trim();
-      if(b.includes('A株式会社') && b.includes('営業部') && b.includes('山田') && b.includes('様')) score += 30;
+      if(b.includes('株式会社A') && b.includes('営業部') && b.includes('山田') && b.includes('様')) score += 30;
 
       // cの採点基準
       const c = formC.value.trim();
@@ -74,7 +74,7 @@
 
       // dの採点基準（完全一致で40点）
       const d = formD.value.trim();
-      if(d.includes('B株式会社') && d.includes('佐藤花子') && d.includes('abcd@sample.com') && d.includes('000-000-0000')) score += 40;
+      if(d.includes('株式会社B') && d.includes('佐藤花子') && d.includes('abcd@sample.com') && d.includes('000-000-0000')) score += 40;
 
       // 判定（合格ライン60点）
       const max = 95;
