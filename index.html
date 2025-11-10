@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>ビジネスメール採点ミニゲーム</title>
+  <style>
+    body{font-family:system-ui,-apple-system,Segoe UI,Roboto,'Hiragino Kaku Gothic ProN',Meiryo,Arial;margin:24px;background:#f7f9fb}
+    .wrap{max-width:800px;margin:0 auto;background:#fff;padding:20px;border-radius:8px;box-shadow:0 6px 20px rgba(20,30,40,0.08)}
+    input[type=text], textarea{width:100%;padding:8px 10px;border:1px solid #d0d7de;border-radius:6px;font-size:14px;margin:6px 0}
+    button{margin-top:16px;padding:10px 16px;border-radius:6px;border:0;background:#0b74de;color:#fff;font-weight:600;cursor:pointer}
+    #result{margin-top:20px;font-size:18px;font-weight:700}
+    pre{white-space:pre-wrap;line-height:1.8}
+    .desc{margin-top:12px;margin-bottom:20px;line-height:1.6;color:#333}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <h2>ビジネスメール採点ミニゲーム</h2>
+    <div class="desc">
+      <p>ビジネスメールの穴埋めをしてみよう。</p>
+      <p>あなたはB株式会社営業部の佐藤花子。使用しているアドレスは <b>abcd@sample.com</b> で、電話番号は <b>000-000-0000</b> です。</p>
+      <p>取引相手のA株式会社営業部山田さんに、会議の日程調整のメールを送ろう。</p>
+    </div>
+
+    <pre>
+件名: <input id="formA" type="text" />
+
+<input id="formB" type="text" />
+
+お世話になっております。
+株式会社ABCの佐藤です。
+
+先日お打ち合わせした案件について、次回会議の日程をご確認いただきたくご連絡いたしました。
+候補日：
+11月15日（金）10:00〜11:00
+11月18日（月）14:00〜15:00
+ご都合のよい日時をお知らせいただけますと幸いです。
+
+<input id="formC" type="text" />
+
+――――――――――――
+<textarea id="formD" rows="3"></textarea>
+――――――――――――
+    </pre>
+
+    <button id="gradeBtn">採点</button>
+    <div id="result"></div>
+  </div>
+
+  <script>
+    const formA = document.getElementById('formA');
+    const formB = document.getElementById('formB');
+    const formC = document.getElementById('formC');
+    const formD = document.getElementById('formD');
+    const gradeBtn = document.getElementById('gradeBtn');
+    const result = document.getElementById('result');
+
+    gradeBtn.addEventListener('click', () => {
+      let score = 0;
+
+      // aの採点基準（15文字以内 → 15点）
+      if(formA.value.trim().length > 0 && formA.value.trim().length <= 15) score += 15;
+
+      // bの採点基準（完全一致で30点）
+      const b = formB.value.trim();
+      if(b.includes('A株式会社') && b.includes('営業部') && b.includes('山田') && b.includes('様')) score += 30;
+
+      // cの採点基準
+      const c = formC.value.trim();
+      if(c.includes('何卒')) score += 5;
+      if(c.includes('よろしく')) score += 5;
+      if(c.includes('ます')) score += 5;
+
+      // dの採点基準（完全一致で40点）
+      const d = formD.value.trim();
+      if(d.includes('B株式会社') && d.includes('佐藤花子') && d.includes('abcd@sample.com') && d.includes('000-000-0000')) score += 40;
+
+      // 判定（合格ライン60点）
+      const max = 95;
+      if(score >= 60){
+        result.textContent = `合格（${score}点）`;
+        result.style.color = 'green';
+      } else {
+        result.textContent = `不合格（${score}点）`;
+        result.style.color = 'red';
+      }
+    });
+  </script>
+</body>
+</html>
